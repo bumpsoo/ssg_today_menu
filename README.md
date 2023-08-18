@@ -1,7 +1,9 @@
 ## aws lambda + scheduler로 특정 시간에 메뉴(SSG 오늘의 메뉴) 알람
 
 필요한 lambda 권한
+
 - create schedule
+
 필요한 scheduler 권한
 - invoke lambda
 
