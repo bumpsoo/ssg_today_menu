@@ -16,7 +16,7 @@ const res_with_err = (res, err_msg) => {
 const parse_event = (event) => {
 	if (event.slack_url != undefined) {
 		return {
-			date: event.date ?? for_menu(),
+			date: event.date ?? for_menu(new Date()),
 			slack_url: event.slack_url,
 			count: event.count ?? 0
 		}
@@ -43,10 +43,9 @@ export const handler = async (event) => {
 	event = parse_event(event)
 	if (event.error != undefined)
 		return res_with_err(res, event.error)
-	let payload = get_menu_payload(event.date)
+	let payload = await get_menu_payload(event.date)
+	console.log(payload)
 	switch (payload.error) {
-		case undefined:
-			return await send_slack_message(res, event.slack_url, payload)
 		case constants.error.INVALID:
 			return res_with_err(res, payload.error)
 		case constants.error.EMPTY_MENU:
@@ -58,6 +57,8 @@ export const handler = async (event) => {
 			} else {
 				return await send_slack_message(res, event.slack_url, payload)
 			}
+		case undefined:
+		default:
+			return await send_slack_message(res, event.slack_url, payload)
 	}
-	return res
 }

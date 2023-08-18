@@ -47,8 +47,9 @@ export const get_menu_payload = async (date) => {
 		return {error: constants.error.INVALID}
 	if (menu.model.model.length == 0)
 		return {error: constants.error.EMPTY_MENU}
-	console.log(menu.model.model)
-	const parsed = parse_menu_data(menu)
+	const menus = menu.model.model
+	console.log(menus)
+	const parsed = parse_menu_data(menus)
 	if (parsed.error != undefined)
 		return {error: constants.error.EMPTY_IMAGE}
 	const payload = data_for_slack(date, parsed)
