@@ -3,6 +3,10 @@ import { for_schedule, add_minutes } from "./time.js";
 
 const GROUP_NAME = 'default'
 
+const getRandomInt = (min, max) => {
+	return Math.floor(Math.random() * (max - min)) + min
+}
+
 export const create_schedule = async (count, slack_url) => {
 	const client = new SchedulerClient();
 	const dt = for_schedule(add_minutes(new Date(), 15))
