@@ -31,7 +31,7 @@ const send_slack_message = async (res, slack_url, payload) => {
 		return res_with_err(res, constants.error.SLACK_FAIL)
 }
 
-const send_schedule = async (event)  => {
+const send_schedule = async (res, event)  => {
 	if (await create_schedule(event.count, event.slack_url, event.date))
 		return res
 	else
@@ -54,7 +54,7 @@ export const handler = async (event) => {
 				payload = JSON.stringify({text: '메뉴가 등록되지 않았습니다.'})
 		case constants.error.EMPTY_IMAGE:
 			if (event.count < constants.MAX_RETRY) {
-				return await send_schedule(res, event.count, event.slack_url)
+				return await send_schedule(res, event)
 			} else {
 				return await send_slack_message(res, event.slack_url, payload)
 			}
