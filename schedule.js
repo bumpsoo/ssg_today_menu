@@ -32,5 +32,6 @@ export const create_schedule = async (count, slack_url) => {
 		}
 	}
 	const res = await client.send(new CreateScheduleCommand(createInput))
+	console.log(res)
 	return res.ScheduleArn != undefined
 }

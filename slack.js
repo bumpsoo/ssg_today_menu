@@ -53,5 +53,6 @@ export const send_webhook = async (slack_url, data) => {
 		}
 	)
 	const text = await res.text()
+	console.log(text)
 	return text == 'ok'
 }
