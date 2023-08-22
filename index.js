@@ -39,6 +39,7 @@ const send_schedule = async (res, count, slack_url)  => {
 }
 
 export const handler = async (event) => {
+	process.env.TZ = 'Asia/Seoul';
 	const res = response(200, 'ok');
 	event = parse_event(event)
 	if (event.error != undefined)

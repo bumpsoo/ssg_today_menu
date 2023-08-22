@@ -7,11 +7,15 @@ const get_day = (date) => {
 	return String(date.getDate()).padStart(2, '0')
 }
 
+const get_hours = (date) => {
+	return String(date.getHours()).padStart(2, '0')
+}
+
 export const for_schedule = (date) => {
 	const year = date.getFullYear()
 	const month = get_month(date)
 	const dat = get_day(date)
-	const hour = date.getHours()
+	const hour = get_hours(date)
 	const minute = date.getMinutes()
 	const second = date.getSeconds()
 	return `${year}-${month}-${dat}T${hour}:${minute}:${second}`
