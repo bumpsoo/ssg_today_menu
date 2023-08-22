@@ -31,8 +31,8 @@ const send_slack_message = async (res, slack_url, payload) => {
 		return res_with_err(res, constants.error.SLACK_FAIL)
 }
 
-const send_schedule = async (res, count, slack_url)  => {
-	if (await create_schedule(count, slack_url))
+const send_schedule = async (event)  => {
+	if (await create_schedule(event.count, event.slack_url, event.date))
 		return res
 	else
 		return res_with_err(res, constants.error.SCHEDULE_FAIL)

@@ -7,7 +7,7 @@ const getRandomInt = (min, max) => {
 	return Math.floor(Math.random() * (max - min)) + min
 }
 
-export const create_schedule = async (count, slack_url) => {
+export const create_schedule = async (count, slack_url, date) => {
 	const client = new SchedulerClient();
 	const dt = for_schedule(add_minutes(new Date(), 15))
 	const rand = getRandomInt(1, 100000000)
@@ -24,7 +24,8 @@ export const create_schedule = async (count, slack_url) => {
 			RoleArn: process.env.SCHEDULE_ROLE_ARN,
 			Input: JSON.stringify({
 				count: count + 1,
-				slack_url: slack_url
+				slack_url: slack_url,
+				date: date
 			}),
 			RetryPolicy: {
 				MaximumRetryAttempts: 0
