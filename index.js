@@ -44,14 +44,12 @@ export const handler = async (event) => {
 	event = parse_event(event)
 	if (event.error != undefined)
 		return res_with_err(res, event.error)
-	let payload = await get_menu_payload(event.date)
+	const payload = await get_menu_payload(event.date)
 	console.log(JSON.stringify(payload))
 	switch (payload.error) {
 		case constants.error.INVALID:
 			return res_with_err(res, payload.error)
 		case constants.error.EMPTY_MENU:
-			if (event.count >= constants.MAX_RETRY)
-				payload = JSON.stringify({text: '메뉴가 등록되지 않았습니다.'})
 		case constants.error.EMPTY_IMAGE:
 			if (event.count < constants.MAX_RETRY) {
 				return await send_schedule(res, event)
