@@ -45,7 +45,7 @@ export const handler = async (event) => {
 	if (event.error != undefined)
 		return res_with_err(res, event.error)
 	let payload = await get_menu_payload(event.date)
-	console.log(payload)
+	console.log(JSON.stringify(payload))
 	switch (payload.error) {
 		case constants.error.INVALID:
 			return res_with_err(res, payload.error)
@@ -56,10 +56,10 @@ export const handler = async (event) => {
 			if (event.count < constants.MAX_RETRY) {
 				return await send_schedule(res, event)
 			} else {
-				return await send_slack_message(res, event.slack_url, payload)
+				return await send_slack_message(res, event.slack_url, payload.body)
 			}
 		case undefined:
 		default:
-			return await send_slack_message(res, event.slack_url, payload)
+			return await send_slack_message(res, event.slack_url, payload.body)
 	}
 }
